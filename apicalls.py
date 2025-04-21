@@ -19,12 +19,12 @@ yt_api: str = "https://www.googleapis.com/youtube/v3"  # Youtube search API
 
 
 # Gets the total amount of playtime for a specified channel ID or playlist ID
-def get_total_playtime(type: str, id: str):
+def get_total_playtime(id_type: str, id: str):
     total_playtime = datetime.timedelta(seconds=0)
 
     playlist_id: str = id
     # If a channel is specified, query the channel to get the ID of its uploads playlist
-    if type == "c":
+    if id_type == "c":
         # Gets the contentDetails for a specified channel ID
         uploads_response: list = requests.get(
             f"{yt_api}/channels",
@@ -144,7 +144,7 @@ args = parser.parse_args()
 
 print(args)
 
-type: str = args.type
+id_type: str = args.type
 id: str = args.id
 
-print(f"Total Playtime: {get_total_playtime(args.type, args.id)}")
+print(f"Total Playtime: {get_total_playtime(id_type, id)}")
